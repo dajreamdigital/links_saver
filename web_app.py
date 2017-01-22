@@ -58,39 +58,4 @@ def collection():
 
 
 
-purana format 1
-
-@app.route('/')
-def index():
-	return render_template ('form.html')
-
-
-@app.route('/send', methods=['POST'])
-def send():
-	url = request.form['URL']
-	users = mongo.db.users
-	if url [:3] != 'www':
-		return render_template ('form_error.html')
-	else:	
-		users.insert({"Link" : request.form['URL']})
-		return render_template ('form_success.html')
-
-
-
-latest code
-
-
-		@app.route('/send', methods=['POST'])
-def send():
-	url = request.form['URL']
-	users = mongo.db.users
-	if url [:3] != 'www' and \
-	   url [:4] != 'http' and \
-	   url [:5] != 'https' :
-		return render_template ('form_error.html')
-
-	else:	
-		users.insert({"Link" : request.form['URL']})
-		return render_template ('form_success.html')
-
 '''
