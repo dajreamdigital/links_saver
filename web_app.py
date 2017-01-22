@@ -56,4 +56,10 @@ def collection():
 
 	return res
 
+<<<<<<< HEAD
 '''
+=======
+
+
+'''
+>>>>>>> 4898a78fcee253da0d10549de1a07277508110be
