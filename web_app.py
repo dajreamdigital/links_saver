@@ -55,10 +55,5 @@ def collection():
 		res += str(item.get('Link')) + "<br />"
 
 	return res
-<<<<<<< HEAD
+	
 '''
-=======
-
-'''
-
->>>>>>> 11b23a6b0c0b2b51f400dd0af7cb3de8fd142301
