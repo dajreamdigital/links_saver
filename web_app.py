@@ -1,6 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
-import validators
 
 
 app = Flask(__name__)
@@ -21,8 +20,9 @@ def links():
 def send():
 	url = request.form['URL']
 	users = mongo.db.allLinks
-	validators.url(request.form['URL'])
-	if not validators.url(request.form['URL']):
+	if url [:3] != 'www' and \
+	   url [:4] != 'http' and \
+	   url [:5] != 'https' :
 		return render_template ('form_error.html')
 
 	else:	
@@ -55,5 +55,4 @@ def collection():
 		res += str(item.get('Link')) + "<br />"
 
 	return res
-	
 '''
