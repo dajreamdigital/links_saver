@@ -22,12 +22,6 @@ def send():
 	url = request.form['URL']
 	users = mongo.db.allLinks
 
-
-	if url [:3] != 'www' and \
-	   url [:4] != 'http' and \
-	   url [:5] != 'https' :
-		return render_template ('form_error.html')
-
 	match = re.search(r"\w\w\w\.\w+\.\.*" , url) 
 	match_https = re.search(r"https\://\w+\.\.*" , url) 
 	match_http = re.search(r"http\://\w+\.\.*" , url) 
