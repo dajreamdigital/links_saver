@@ -23,8 +23,8 @@ def send():
 	users = mongo.db.allLinks
 
 	match = re.search(r"\w\w\w\.\w+\.\.*" , url) 
-	match_https = re.search(r"https\://\w+\.\.*" , url) 
-	match_http = re.search(r"http\://\w+\.\.*" , url) 
+	match_https = re.search(r"https|http\://\w+\.\.*" , url) 
+	match_simp = re.search(r"\w+\.\w+" , url)
 
 	if match:
 		users.insert({"Link" : request.form['URL']})
@@ -33,7 +33,7 @@ def send():
 		users.insert({"Link" : request.form['URL']})
 		return render_template ('form_success.html')
 
-	elif match_http:
+	elif match_simp:
 		users.insert({"Link" : request.form['URL']})
 		return render_template ('form_success.html')
 	
