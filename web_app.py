@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_pymongo import PyMongo
-import validators
+import re
 
 
 app = Flask(__name__)
@@ -21,13 +21,25 @@ def links():
 def send():
 	url = request.form['URL']
 	users = mongo.db.allLinks
-	validators.url(request.form['URL'])
-	if not validators.url(request.form['URL']):
-		return render_template ('form_error.html')
 
-	else:	
+	match = re.search(r"\w\w\w\.\w+\.\.*" , url) 
+	match_https = re.search(r"https\://\w+\.\.*" , url) 
+	match_http = re.search(r"http\://\w+\.\.*" , url) 
+
+	if match:
 		users.insert({"Link" : request.form['URL']})
 		return render_template ('form_success.html')
+	elif match_https:
+		users.insert({"Link" : request.form['URL']})
+		return render_template ('form_success.html')
+
+	elif match_http:
+		users.insert({"Link" : request.form['URL']})
+		return render_template ('form_success.html')
+	
+	else:
+		print "not found"
+		return render_template ('form_error.html')
 
 @app.route('/lists')
 def collection():
@@ -55,10 +67,12 @@ def collection():
 		res += str(item.get('Link')) + "<br />"
 
 	return res
-<<<<<<< HEAD
-'''
-=======
 
-'''
 
->>>>>>> 11b23a6b0c0b2b51f400dd0af7cb3de8fd142301
+
+	r"https\://\w+\.\w+\.\w+"     https wala
+
+r"www\.\w+\.\w+" 				www wala
+
+r"http\://\w+\.\w+\.\w+"   		http wala
+'''
